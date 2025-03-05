@@ -1,0 +1,152 @@
+Here's a simple web application using HTML, CSS, and JavaScript that allows the user to input two floating-point numbers, multiplies them, and displays the result. This example uses JavaScript to handle the multiplication and displays the result with single precision (32-bit floating-point format).
+
+HTML (index.html)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Precision Multiplication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Single Precision Multiplication</h1>
+    <label for="num1">Enter First Number:</label>
+    <input type="number" id="num1" step="any" placeholder="Number 1">
+
+    <label for="num2">Enter Second Number:</label>
+    <input type="number" id="num2" step="any" placeholder="Number 2">
+
+    <button onclick="multiply()">Multiply</button>
+
+    <h3>Result in Decimal:</h3>
+    <p id="resultDecimal"></p>
+
+    <h3>Result in Binary (Single Precision IEEE 754):</h3>
+    <p id="resultBinary"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+---
+
+CSS (style.css)
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f3f3f3;
+    padding: 50px;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: inline-block;
+    width: 400px;
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+p {
+    font-weight: bold;
+    color: #333;
+}
+
+
+---
+
+JavaScript (script.js)
+
+function floatToBinary(num) {
+    let buffer = new ArrayBuffer(4); // 4 bytes = 32 bits
+    let view = new DataView(buffer);
+    view.setFloat32(0, num);
+    let binary = "";
+    for (let i = 0; i < 4; i++) {
+        let byte = view.getUint8(i).toString(2).padStart(8, '0');
+        binary += byte;
+    }
+    return binary;
+}
+
+function multiply() {
+    let num1 = parseFloat(document.getElementById("num1").value);
+    let num2 = parseFloat(document.getElementById("num2").value);
+
+    if (isNaN(num1) || isNaN(num2)) {
+        alert("Please enter valid numbers.");
+        return;
+    }
+
+    let result = num1 * num2;
+    document.getElementById("resultDecimal").innerText = result;
+    document.getElementById("resultBinary").innerText = floatToBinary(result);
+}
+
+
+---
+
+Explanation
+
+1. The HTML structure takes two user inputs.
+
+
+2. The CSS styles the layout.
+
+
+3. The JavaScript handles:
+
+Converting the result to IEEE 754 Single Precision Format.
+
+Displaying both the decimal result and the binary result.
+
+
+
+
+
+---
+
+How to Run
+
+1. Create three files: index.html, style.css, and script.js.
+
+
+2. Put them in the same folder.
+
+
+3. Open the index.html file in your browser.
+
+
+
+
+---
+
+✅ This project demonstrates multiplication of two numbers and their binary representation in single-precision IEEE 754 format. Let me know if you'd like me to explain the IEEE 754 format in detail!
+
